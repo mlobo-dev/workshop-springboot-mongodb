@@ -17,6 +17,10 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
+	public User fromDTO(UserDTO userDTO) {
+		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+	}
+
 	public List<User> findAll() {
 		return repository.findAll();
 	}
@@ -30,7 +34,8 @@ public class UserService {
 		return repository.insert(user);
 	}
 
-	public User fromDTO(UserDTO userDTO) {
-		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+	public void delete(String id) {
+		findById(id);
+		repository.deleteById(id);
 	}
 }
